@@ -138,16 +138,24 @@ def main(page: ft.Page):
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
     )
 
-    # ---- Chat view (demo content only, not wired to anything) ---------------
+    # ---- Chat view ------------------------------------------------------------
     chat_view = ft.ListView(
-        controls=[
-            message_bubble("YOU", "Show me the new interface", AMBER, PANEL_USER, AMBER_BORDER, True),
-            message_bubble("JARVIS", "Static UI online. Backend arrives in a later phase.", CYAN, PANEL_JARVIS, CYAN_BORDER, False),
-        ],
         expand=True,
         spacing=14,
         padding=16,
+        auto_scroll=True,
     )
+
+    def send_message(e):
+        if not user_input.value or not user_input.value.strip():
+            return
+        text = user_input.value.strip()
+        chat_view.controls.append(message_bubble("YOU", text, AMBER, PANEL_USER, AMBER_BORDER, True))
+        chat_view.controls.append(
+            message_bubble("JARVIS", "Backend not connected yet.", CYAN, PANEL_JARVIS, CYAN_BORDER, False)
+        )
+        user_input.value = ""
+        page.update()
 
     # ---- Input bar ------------------------------------------------------------
     user_input = ft.TextField(
@@ -157,6 +165,7 @@ def main(page: ft.Page):
         focused_border_color="transparent",
         bgcolor="transparent",
         expand=True,
+        on_submit=send_message,
     )
 
     input_bar = ft.Container(
@@ -167,7 +176,7 @@ def main(page: ft.Page):
                 ft.IconButton(ft.Icons.MIC, icon_color=TEXT_MUTED, tooltip="Voice"),
                 ft.IconButton(ft.Icons.CAMERA_ALT, icon_color=TEXT_MUTED, tooltip="Camera"),
                 user_input,
-                ft.IconButton(ft.Icons.SEND, icon_color=CYAN, tooltip="Send"),
+                ft.IconButton(ft.Icons.SEND, icon_color=CYAN, tooltip="Send", on_click=send_message),
             ],
             spacing=2,
         ),
