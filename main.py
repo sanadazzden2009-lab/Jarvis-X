@@ -7,6 +7,7 @@ from ui.drawer import build_drawer
 from ui.core_section import build_core_section
 from ui.chat_view import build_chat_view, add_exchange
 from ui.input_bar import build_input_bar
+from brain import process_message
 
 
 def main(page: ft.Page):
@@ -29,7 +30,8 @@ def main(page: ft.Page):
         if not user_input.value or not user_input.value.strip():
             return
         text = user_input.value.strip()
-        add_exchange(chat_view, text)
+        reply = process_message(text)
+        add_exchange(chat_view, text, reply)
         user_input.value = ""
         page.update()
 
