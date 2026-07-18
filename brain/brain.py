@@ -1,9 +1,12 @@
+from providers import generate_reply
+
+
 def process_message(text: str) -> str:
     """
-    Placeholder brain layer.
+    Brain layer entry point.
 
-    This is the single seam where a real AI provider (Groq, etc.) will be
-    connected in a later phase. For now it always returns the same fixed
-    reply so the rest of the app is wired against a stable interface early.
+    Currently forwards straight to the Groq provider placeholder. Once more
+    than one provider exists, routing logic (retries, provider switching,
+    model choice) will live here instead.
     """
-    return "Backend not connected yet."
+    return generate_reply(text)
