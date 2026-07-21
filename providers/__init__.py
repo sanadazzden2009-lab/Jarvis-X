@@ -1,3 +1,3 @@
-from .groq_provider import generate_reply
+from .router import route
 
-__all__ = ["generate_reply"]
+__all__ = ["route"]
