@@ -5,7 +5,7 @@ from ui.components import message_bubble
 
 
 def build_chat_view():
-    return ft.ListView(expand=True, spacing=14, padding=16, auto_scroll=True)
+    return ft.ListView(expand=True, spacing=16, padding=18, auto_scroll=True)
 
 
 def add_exchange(chat_view, user_text, jarvis_text):
