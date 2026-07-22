@@ -3,12 +3,23 @@ import flet as ft
 from ui import theme
 
 
-def framed(content, border_color, bg_color, radius=14, thickness=1, width=None):
+def framed(content, border_color, bg_color, radius=14, thickness=1, width=None, glow=False):
     inner = ft.Container(
         content=content,
         bgcolor=bg_color,
         border_radius=max(radius - thickness, 0),
-        padding=12,
+        padding=14,
+    )
+    shadow = (
+        ft.BoxShadow(
+            color=border_color,
+            blur_radius=16,
+            spread_radius=0,
+            offset=ft.Offset(0, 0),
+            blur_style=ft.ShadowBlurStyle.OUTER,
+        )
+        if glow
+        else None
     )
     return ft.Container(
         content=inner,
@@ -16,6 +27,7 @@ def framed(content, border_color, bg_color, radius=14, thickness=1, width=None):
         border_radius=radius,
         padding=thickness,
         width=width,
+        shadow=shadow,
     )
 
 
@@ -30,7 +42,8 @@ def message_bubble(label, text, accent, panel_color, border_color, align_end):
         ),
         border_color=border_color,
         bg_color=panel_color,
-        width=250,
+        width=260,
+        glow=True,
     )
     return ft.Row(
         [bubble],
@@ -39,10 +52,13 @@ def message_bubble(label, text, accent, panel_color, border_color, align_end):
 
 
 def menu_item(icon, label):
-    return ft.Row(
-        [
-            ft.Icon(icon, size=18, color=theme.TEXT_MUTED),
-            ft.Text(label, size=13, color=theme.TEXT_PRIMARY),
-        ],
-        spacing=12,
+    return ft.Container(
+        content=ft.Row(
+            [
+                ft.Icon(icon, size=18, color=theme.TEXT_MUTED),
+                ft.Text(label, size=13, color=theme.TEXT_PRIMARY),
+            ],
+            spacing=14,
+        ),
+        padding=6,
     )
