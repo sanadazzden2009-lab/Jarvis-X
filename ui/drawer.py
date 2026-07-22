@@ -18,12 +18,22 @@ DRAWER_ITEMS = [
 def build_drawer():
     return ft.Container(
         content=ft.Column(
-            [ft.Text("MENU", size=11, color=theme.TEXT_MUTED, weight=ft.FontWeight.BOLD)]
+            [
+                ft.Text("MENU", size=11, color=theme.TEXT_MUTED, weight=ft.FontWeight.BOLD),
+                ft.Container(height=1, bgcolor=theme.HAIRLINE),
+            ]
             + [menu_item(icon, label) for icon, label in DRAWER_ITEMS],
-            spacing=22,
+            spacing=18,
         ),
-        width=210,
+        width=220,
         bgcolor=theme.DRAWER_BG,
         padding=20,
+        shadow=ft.BoxShadow(
+            color=theme.CYAN_MID,
+            blur_radius=18,
+            spread_radius=0,
+            offset=ft.Offset(6, 0),
+            blur_style=ft.ShadowBlurStyle.OUTER,
+        ),
         visible=False,
     )
