@@ -14,6 +14,19 @@ def build_input_bar(on_submit, on_send_click):
         on_submit=on_submit,
     )
 
+    send_button = ft.Container(
+        content=ft.IconButton(ft.Icons.SEND, icon_color=theme.BG_DARK, on_click=on_send_click),
+        bgcolor=theme.CYAN,
+        border_radius=12,
+        shadow=ft.BoxShadow(
+            color=theme.CYAN,
+            blur_radius=14,
+            spread_radius=1,
+            offset=ft.Offset(0, 0),
+            blur_style=ft.ShadowBlurStyle.OUTER,
+        ),
+    )
+
     input_bar = ft.Container(
         content=ft.Row(
             [
@@ -22,12 +35,12 @@ def build_input_bar(on_submit, on_send_click):
                 ft.IconButton(ft.Icons.MIC, icon_color=theme.TEXT_MUTED, tooltip="Voice"),
                 ft.IconButton(ft.Icons.CAMERA_ALT, icon_color=theme.TEXT_MUTED, tooltip="Camera"),
                 user_input,
-                ft.IconButton(ft.Icons.SEND, icon_color=theme.CYAN, tooltip="Send", on_click=on_send_click),
+                send_button,
             ],
-            spacing=2,
+            spacing=4,
         ),
-        bgcolor=theme.PANEL_INPUT,
-        border_radius=16,
+        bgcolor=theme.SURFACE,
+        border_radius=18,
         padding=6,
         margin=16,
     )
