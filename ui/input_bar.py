@@ -2,29 +2,32 @@ import flet as ft
 from ui import theme
 
 
-def create_input_bar(page: ft.Page, on_send) -> ft.Control:
-    text_field = ft.TextField(
+def build_input_bar(on_submit, on_send_click):
+    """Build the input bar and return (input_bar, user_input)."""
+    user_input = ft.TextField(
         hint_text="Type command...",
         border_color=theme.CYAN_BORDER,
         bgcolor=theme.PANEL_BG,
         color=theme.TEXT_PRIMARY,
         expand=True,
+        on_submit=on_submit,  # Called when Enter is pressed
     )
 
     def send_click(e):
-        if text_field.value.strip():
-            on_send(text_field.value)
-            text_field.value = ""
-            page.update()
+        if user_input.value.strip():
+            on_send_click(user_input.value)
+            user_input.value = ""
+            user_input.update()
 
     send_btn = ft.IconButton(
         icon=ft.icons.SEND,
         icon_color=theme.HUD_GREEN,
         on_click=send_click,
     )
-    return ft.Container(
+
+    input_bar = ft.Container(
         content=ft.Row(
-            [text_field, send_btn],
+            [user_input, send_btn],
             spacing=8,
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
         ),
@@ -32,3 +35,5 @@ def create_input_bar(page: ft.Page, on_send) -> ft.Control:
         bgcolor=theme.HEADER_BG,
         border=ft.border.only(top=ft.border.BorderSide(1, theme.CYAN_BORDER)),
     )
+
+    return input_bar, user_input
