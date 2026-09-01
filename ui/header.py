@@ -1,47 +1,23 @@
 import flet as ft
-
 from ui import theme
+from ui.components import hud_indicator
 
 
-def build_header(on_menu_click):
-    status_dot = ft.Container(
-        width=8,
-        height=8,
-        border_radius=4,
-        bgcolor=theme.CYAN,
-        shadow=ft.BoxShadow(
-            color=theme.CYAN,
-            blur_radius=8,
-            spread_radius=1,
-            offset=ft.Offset(0, 0),
-            blur_style=ft.ShadowBlurStyle.OUTER,
-        ),
-    )
-
-    menu_button = ft.Container(
-        content=ft.IconButton(ft.Icons.MENU, icon_color=theme.CYAN, on_click=on_menu_click),
-        bgcolor=theme.SURFACE,
-        border_radius=12,
-    )
-
+def create_header(provider_name: str, model_name: str, latency_ms: int = None) -> ft.Control:
+    latency_text = f"{latency_ms}ms" if latency_ms is not None else "--"
     return ft.Container(
         content=ft.Row(
             [
-                ft.Column(
-                    [
-                        ft.Text("JARVIS X", size=21, weight=ft.FontWeight.BOLD, color=theme.TEXT_PRIMARY),
-                        ft.Row(
-                            [status_dot, ft.Text("ONLINE", size=11, color=theme.TEXT_MUTED, weight=ft.FontWeight.BOLD)],
-                            spacing=8,
-                        ),
-                        ft.Text("Provider: \u2014   Model: \u2014   Latency: \u2014", size=10, color=theme.TEXT_MUTED),
-                    ],
-                    spacing=6,
-                ),
-                menu_button,
+                ft.Text("JARVIS X", size=16, weight=ft.FontWeight.BOLD, color=theme.TEXT_PRIMARY),
+                ft.Container(width=10),
+                hud_indicator("Provider", provider_name, status="online", icon=ft.icons.CLOUD),
+                hud_indicator("Model", model_name, status="online", icon=ft.icons.MEMORY),
+                hud_indicator("Latency", latency_text, status="online" if latency_ms else "processing", icon=ft.icons.SPEED),
             ],
-            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            spacing=16,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
         ),
-        padding=20,
-        bgcolor=theme.BG_HEADER,
+        padding=ft.padding.symmetric(horizontal=16, vertical=8),
+        bgcolor=theme.HEADER_BG,
+        border=ft.border.only(bottom=ft.border.BorderSide(1, theme.CYAN_BORDER)),
     )
