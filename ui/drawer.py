@@ -1,36 +1,32 @@
 import flet as ft
+
 from ui import theme
+from ui.components import menu_item
 
 
 def build_drawer():
-    """Build the side navigation drawer."""
-    return ft.NavigationDrawer(
-        controls=[
-            ft.Container(
-                content=ft.Text("MENU", size=10, color=theme.TEXT_MUTED, weight=ft.FontWeight.BOLD),
-                padding=ft.padding.only(left=16, top=16, bottom=8),
-            ),
-            ft.NavigationDrawerDestination(
-                icon=ft.icons.DASHBOARD,
-                label="Overview",
-                selected_icon=ft.icons.DASHBOARD,
-            ),
-            ft.NavigationDrawerDestination(
-                icon=ft.icons.CHAT,
-                label="Chat",
-                selected_icon=ft.icons.CHAT,
-            ),
-            ft.NavigationDrawerDestination(
-                icon=ft.icons.SETTINGS,
-                label="Settings",
-                selected_icon=ft.icons.SETTINGS,
-            ),
-            ft.NavigationDrawerDestination(
-                icon=ft.icons.INFO,
-                label="About",
-                selected_icon=ft.icons.INFO,
-            ),
-        ],
-        bgcolor=theme.PANEL_BG,
-        indicator_color=theme.CYAN_BORDER,
+    return ft.Container(
+        content=ft.Column(
+            [
+                ft.Container(height=10),
+                ft.Text(
+                    "MENU",
+                    size=10,
+                    color=theme.TEXT_MUTED,
+                    weight=ft.FontWeight.BOLD,
+                ),
+                ft.Container(height=10),
+                menu_item(ft.icons.DASHBOARD, "Overview"),
+                menu_item(ft.icons.CHAT, "Chat"),
+                menu_item(ft.icons.SETTINGS, "Settings"),
+                menu_item(ft.icons.INFO, "About"),
+            ],
+            spacing=12,
+        ),
+        padding=20,
+        width=200,
+        bgcolor=theme.DRAWER_BG,
+        border=ft.border.only(
+            right=ft.border.BorderSide(1, theme.HAIRLINE)
+        ),
     )
