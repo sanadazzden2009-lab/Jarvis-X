@@ -1,5 +1,4 @@
 import flet as ft
-
 from ui import theme
 
 
@@ -42,7 +41,7 @@ def message_bubble(label, text, accent, panel_color, border_color, align_end):
         border_color=border_color,
         bg_color=panel_color,
         width=260,
-        glow=True,
+        glow=False,  # لا توهج هنا
     )
     return ft.Row(
         [bubble],
@@ -63,9 +62,8 @@ def menu_item(icon, label):
     )
 
 
-# ===== HUD Indicator =====
 def hud_indicator(label, value, status="online", icon=None):
-    """Small HUD indicator with label, value, and status dot."""
+    """مؤشر HUD صغير مع نقطة حالة وأيقونة اختيارية."""
     status_colors = {
         "online": theme.HUD_GREEN,
         "offline": theme.TEXT_MUTED,
@@ -78,20 +76,21 @@ def hud_indicator(label, value, status="online", icon=None):
         bgcolor=status_colors.get(status, theme.TEXT_MUTED),
         border_radius=3,
     )
+    controls = [dot]
+    if icon:
+        controls.append(ft.Icon(icon, size=10, color=theme.TEXT_MUTED))
+    controls.extend([
+        ft.Text(label, size=9, color=theme.TEXT_MUTED),
+        ft.Text(value, size=9, color=theme.TEXT_PRIMARY, weight=ft.FontWeight.W_500),
+    ])
     return ft.Row(
-        [
-            dot,
-            ft.Text(label, size=9, color=theme.TEXT_MUTED),
-            ft.Text(value, size=9, color=theme.TEXT_PRIMARY, weight=ft.FontWeight.W_500),
-        ],
+        controls,
         spacing=6,
         vertical_alignment=ft.CrossAxisAlignment.CENTER,
     )
 
 
-# ===== Status Dot =====
 def status_dot(status="online", size=8):
-    """Return a status dot with color based on status."""
     colors = {
         "online": theme.HUD_GREEN,
         "offline": theme.TEXT_MUTED,
@@ -106,11 +105,8 @@ def status_dot(status="online", size=8):
     )
 
 
-# ===== Tech Panel =====
 def tech_panel(content, glow_color=None, border_color=None):
-    """Return a technical panel with subtle border and optional glow."""
     border = border_color or theme.CYAN_BORDER
-    glow = glow_color or theme.GLOW_CYAN
     return ft.Container(
         content=content,
         bgcolor=theme.PANEL_BG,
@@ -118,7 +114,7 @@ def tech_panel(content, glow_color=None, border_color=None):
         border_radius=8,
         padding=12,
         shadow=ft.BoxShadow(
-            color=glow,
+            color=glow_color,
             blur_radius=12,
             spread_radius=0,
             offset=ft.Offset(0, 0),
@@ -126,9 +122,7 @@ def tech_panel(content, glow_color=None, border_color=None):
     )
 
 
-# ===== Glow Container =====
 def glow_container(content, glow_color, border_color=None, radius=12, padding=14):
-    """Container with glow effect, similar to framed() but with explicit glow control."""
     border = border_color or theme.CYAN_BORDER
     return ft.Container(
         content=content,
@@ -145,7 +139,5 @@ def glow_container(content, glow_color, border_color=None, radius=12, padding=14
     )
 
 
-# ===== Technical Border Helper =====
 def tech_border(color=None, width=1):
-    """Return a border style for technical panels."""
     return ft.border.all(width, color or theme.CYAN_BORDER)
