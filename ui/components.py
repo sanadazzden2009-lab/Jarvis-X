@@ -16,7 +16,6 @@ def framed(content, border_color, bg_color, radius=14, thickness=1, width=None, 
             blur_radius=16,
             spread_radius=0,
             offset=ft.Offset(0, 0),
-            blur_style=ft.ShadowBlurStyle.OUTER,
         )
         if glow
         else None
@@ -123,7 +122,6 @@ def tech_panel(content, glow_color=None, border_color=None):
             blur_radius=12,
             spread_radius=0,
             offset=ft.Offset(0, 0),
-            blur_style=ft.ShadowBlurStyle.OUTER,
         ) if glow_color else None,
     )
 
@@ -143,7 +141,6 @@ def glow_container(content, glow_color, border_color=None, radius=12, padding=14
             blur_radius=20,
             spread_radius=0,
             offset=ft.Offset(0, 0),
-            blur_style=ft.ShadowBlurStyle.OUTER,
         ),
     )
 
