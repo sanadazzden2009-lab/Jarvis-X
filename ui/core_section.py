@@ -1,60 +1,64 @@
 import flet as ft
+
 from ui import theme
-from ui.components import status_dot
 
 
-class CoreSection:
-    def __init__(self):
-        self.rotation_angle = 0
-        self.timer = None
-        self.ring1 = ft.Container(
-            width=180,
-            height=180,
-            border=ft.border.all(2, theme.CYAN_BORDER),
-            border_radius=90,
-            alignment=ft.alignment.center,
-        )
-        self.ring2 = ft.Container(
-            width=140,
-            height=140,
-            border=ft.border.all(1, theme.TEXT_MUTED),
-            border_radius=70,
-            alignment=ft.alignment.center,
-        )
-        self.core = ft.Container(
-            width=80,
-            height=80,
-            border=ft.border.all(1, theme.AMBER_BORDER),
-            border_radius=40,
-            alignment=ft.alignment.center,
-            content=status_dot("online", size=12),
-        )
-        self.container = ft.Container(
-            content=ft.Stack(
-                [self.ring1, self.ring2, self.core],
-                alignment=ft.alignment.center,
+def _centered(inner):
+    return ft.Column(
+        [inner],
+        alignment=ft.MainAxisAlignment.CENTER,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+    )
+
+
+def build_core_section():
+    inner_core = ft.Container(
+        width=56,
+        height=56,
+        border_radius=28,
+        bgcolor=theme.CYAN,
+        shadow=ft.BoxShadow(
+            color=theme.CYAN,
+            blur_radius=22,
+            spread_radius=2,
+            offset=ft.Offset(0, 0),
+        ),
+    )
+
+    ring = ft.Container(
+        content=_centered(inner_core),
+        width=104,
+        height=104,
+        border_radius=52,
+        bgcolor=theme.CYAN_MID,
+    )
+
+    halo = ft.Container(
+        content=_centered(ring),
+        width=160,
+        height=160,
+        border_radius=80,
+        bgcolor=theme.CYAN_DIM,
+        shadow=ft.BoxShadow(
+            color=theme.CYAN,
+            blur_radius=46,
+            spread_radius=2,
+            offset=ft.Offset(0, 0),
+        ),
+    )
+
+    return ft.Column(
+        [
+            ft.Container(height=26),
+            halo,
+            ft.Container(height=16),
+            ft.Text(
+                "AWAITING YOUR COMMAND",
+                size=12,
+                color=theme.TEXT_MUTED,
+                weight=ft.FontWeight.BOLD,
             ),
-            width=200,
-            height=200,
-            alignment=ft.alignment.center,
-            rotate=ft.Rotate(angle=0, alignment=ft.alignment.center),
-        )
-
-    def start_rotation(self):
-        def update_rotation():
-            self.rotation_angle = (self.rotation_angle + 1) % 360
-            self.container.rotate.angle = self.rotation_angle
-            self.container.update()
-        self.timer = ft.Timer(50, update_rotation)
-        self.timer.start()
-
-    def stop_rotation(self):
-        if self.timer:
-            self.timer.cancel()
-
-
-def build_core_section() -> ft.Control:
-    """Create and start the rotating core section."""
-    core = CoreSection()
-    core.start_rotation()
-    return core.container
+            ft.Container(height=10),
+        ],
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+    )
