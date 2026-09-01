@@ -2,8 +2,12 @@ import flet as ft
 
 # ===== Backgrounds =====
 BG_COLOR = "#0A0E14"
+BG_DARK = "#0A0E14"          # استخدمها main.py كخلفية
 PANEL_BG = "#121820"
 HEADER_BG = "#0F141C"
+
+# ===== Hairline / Divider =====
+HAIRLINE = "#1F2937"        # لون خط فاصل رفيع
 
 # ===== Text =====
 TEXT_PRIMARY = "#E6EDF3"
