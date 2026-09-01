@@ -40,11 +40,11 @@ class CoreSection:
             rotate=ft.Rotate(angle=0, alignment=ft.alignment.center),
         )
 
-    def start_rotation(self, page: ft.Page):
+    def start_rotation(self):
         def update_rotation():
             self.rotation_angle = (self.rotation_angle + 1) % 360
             self.container.rotate.angle = self.rotation_angle
-            page.update()
+            self.container.update()
         self.timer = ft.Timer(50, update_rotation)
         self.timer.start()
 
@@ -52,11 +52,9 @@ class CoreSection:
         if self.timer:
             self.timer.cancel()
 
-    def build(self) -> ft.Control:
-        return self.container
 
-
-def create_core_section(page: ft.Page) -> CoreSection:
+def build_core_section() -> ft.Control:
+    """Create and start the rotating core section."""
     core = CoreSection()
-    core.start_rotation(page)
-    return core
+    core.start_rotation()
+    return core.container
