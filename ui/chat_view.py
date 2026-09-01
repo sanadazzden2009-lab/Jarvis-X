@@ -1,17 +1,18 @@
 import flet as ft
-
 from ui import theme
 from ui.components import message_bubble
 
 
-def build_chat_view():
-    return ft.ListView(expand=True, spacing=16, padding=18, auto_scroll=True)
-
-
-def add_exchange(chat_view, user_text, jarvis_text):
-    chat_view.controls.append(
-        message_bubble("YOU", user_text, theme.AMBER, theme.PANEL_USER, theme.AMBER_BORDER, True)
+def create_chat_view(page: ft.Page) -> ft.Control:
+    messages = ft.Column(
+        [],
+        spacing=10,
+        scroll=ft.ScrollMode.AUTO,
+        expand=True,
     )
-    chat_view.controls.append(
-        message_bubble("JARVIS", jarvis_text, theme.CYAN, theme.PANEL_JARVIS, theme.CYAN_BORDER, False)
+    return ft.Container(
+        content=messages,
+        padding=16,
+        expand=True,
+        bgcolor=theme.BG_COLOR,
     )
