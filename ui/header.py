@@ -45,7 +45,7 @@ def build_header(on_menu_click):
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
         ),
         padding=ft.padding.symmetric(horizontal=16, vertical=8),
-        bgcolor=theme.BG_HEADER,
+        bgcolor=theme.HEADER_BG,  # تم التصحيح
         border=ft.border.only(
             bottom=ft.border.BorderSide(1, theme.CYAN_BORDER)
         ),
