@@ -2,6 +2,7 @@ import flet as ft
 
 import config
 from ui import theme
+import ui.components
 
 
 def main(page: ft.Page):
@@ -11,10 +12,14 @@ def main(page: ft.Page):
     page.padding = 0
 
     page.add(
-        ft.Text(
-            "STEP 2 - CONFIG AND THEME OK",
-            size=24,
-            color=theme.TEXT_PRIMARY,
+        ft.Container(
+            expand=True,
+            alignment=ft.alignment.center,
+            content=ft.Text(
+                "STEP 3",
+                size=30,
+                color=theme.TEXT_PRIMARY,
+            ),
         )
     )
 
