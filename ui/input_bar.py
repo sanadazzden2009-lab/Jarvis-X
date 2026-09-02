@@ -9,7 +9,7 @@ def build_input_bar(on_submit, on_send_click):
     user_input = ft.TextField(
         hint_text="Type command...",
         border_color=theme.CYAN_BORDER,
-        bgcolor=theme.BG_INPUT,
+        bgcolor=theme.BG_INPUT,      # أصبح معرفًا في theme.py
         color=theme.TEXT_PRIMARY,
         expand=True,
         on_submit=on_submit,
@@ -31,7 +31,7 @@ def build_input_bar(on_submit, on_send_click):
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
         ),
         padding=ft.padding.symmetric(horizontal=12, vertical=8),
-        bgcolor=theme.BG_HEADER,
+        bgcolor=theme.HEADER_BG,      # تم التصحيح
         border=ft.border.only(
             top=ft.border.BorderSide(1, theme.CYAN_BORDER),
         ),
